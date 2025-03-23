@@ -29,8 +29,25 @@ async function fetchRSS() {
 }
 
 function extractMegaphoneId(url) {
-  // Extract Megaphone ID from media URL or guid
-  // This pattern may vary depending on your Megaphone URL structure
+  // Make sure url is a string before using match
+  if (!url || typeof url !== 'string') {
+    // If url is an object with a text or _ property (common in XML to JSON conversions)
+    if (url && typeof url === 'object') {
+      if (url._ && typeof url._ === 'string') {
+        url = url._;
+      } else if (url.text && typeof url.text === 'string') {
+        url = url.text;
+      } else {
+        // Convert object to string or use empty string
+        url = String(url) || '';
+      }
+    } else {
+      // Default to empty string if url is null/undefined or not convertible
+      url = '';
+    }
+  }
+  
+  // Now safely use match on the string
   const match = url.match(/\/([a-zA-Z0-9]+)\.mp3$/) || url.match(/([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})/) || [];
   return match[1] || '';
 }
@@ -47,6 +64,9 @@ async function processEpisodes() {
     const title = episode.title.replace(/[^\w\s]/gi, '').trim();
     const slug = `${formattedDate}-${title.toLowerCase().replace(/\s+/g, '-')}`;
     
+    // Safely get megaphone ID
+    const megaphoneId = extractMegaphoneId(episode.guid || (episode.enclosure && episode.enclosure.url) || '');
+    
     // Extract episode details
     const episodeData = {
       layout: 'episode',
@@ -57,9 +77,10 @@ async function processEpisodes() {
       episode_number: episode['itunes:episode'] || '',
       season: episode['itunes:season'] || '',
       explicit: episode['itunes:explicit'] || 'no',
-      audio_url: episode.enclosure?.url || '',
-      image: episode['itunes:image']?.href || channel['itunes:image']?.href || '',
-      megaphone_id: extractMegaphoneId(episode.guid || episode.enclosure?.url || '')
+      audio_url: episode.enclosure && episode.enclosure.url ? episode.enclosure.url : '',
+      image: episode['itunes:image'] && episode['itunes:image'].href ? episode['itunes:image'].href : 
+             (channel['itunes:image'] && channel['itunes:image'].href ? channel['itunes:image'].href : ''),
+      megaphone_id: megaphoneId
     };
     
     // Create episode file
@@ -71,16 +92,22 @@ async function processEpisodes() {
   });
   
   // Also create episodes.json for potential client-side usage
-  const episodesData = episodes.map(episode => ({
-    title: episode.title,
-    date: episode.pubDate,
-    description: episode.description || episode['itunes:summary'] || '',
-    audio_url: episode.enclosure?.url || '',
-    megaphone_id: extractMegaphoneId(episode.guid || episode.enclosure?.url || ''),
-    image: episode['itunes:image']?.href || channel['itunes:image']?.href || '',
-    episode_number: episode['itunes:episode'] || '',
-    season: episode['itunes:season'] || ''
-  }));
+  const episodesData = episodes.map(episode => {
+    // Safely get megaphone ID
+    const megaphoneId = extractMegaphoneId(episode.guid || (episode.enclosure && episode.enclosure.url) || '');
+    
+    return {
+      title: episode.title,
+      date: episode.pubDate,
+      description: episode.description || episode['itunes:summary'] || '',
+      audio_url: episode.enclosure && episode.enclosure.url ? episode.enclosure.url : '',
+      megaphone_id: megaphoneId,
+      image: episode['itunes:image'] && episode['itunes:image'].href ? episode['itunes:image'].href : 
+             (channel['itunes:image'] && channel['itunes:image'].href ? channel['itunes:image'].href : ''),
+      episode_number: episode['itunes:episode'] || '',
+      season: episode['itunes:season'] || ''
+    };
+  });
   
   fs.writeFileSync(path.join(__dirname, '../_data/episodes.json'), JSON.stringify(episodesData, null, 2));
   console.log('Created episodes.json data file');

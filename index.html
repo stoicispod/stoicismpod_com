@@ -1,0 +1,27 @@
+---
+layout: default
+title: Home
+---
+
+<div class="episodes-list">
+  <h1>{{ site.title }} - All Episodes</h1>
+  
+  {% assign episodes = site.episodes | sort: 'date' | reverse %}
+  {% for episode in episodes %}
+    <div class="episode-card">
+      <div class="episode-card-image">
+        {% if episode.image %}
+          <img src="{{ episode.image }}" alt="{{ episode.title }}">
+        {% endif %}
+      </div>
+      <div class="episode-card-content">
+        <h2 class="episode-card-title">
+          <a href="{{ episode.url | relative_url }}">{{ episode.title }}</a>
+        </h2>
+        <p class="episode-card-date">{{ episode.date | date: "%B %d, %Y" }}</p>
+        <p class="episode-card-excerpt">{{ episode.description | strip_html | truncatewords: 30 }}</p>
+        <a href="{{ episode.url | relative_url }}" class="episode-card-link">Listen to Episode</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>

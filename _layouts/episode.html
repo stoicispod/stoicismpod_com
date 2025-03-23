@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<div class="episode">
+  <div class="episode-header">
+    <h1 class="episode-title">{{ page.title }}</h1>
+    <p class="episode-date">{{ page.date | date: "%B %d, %Y" }}</p>
+    
+    {% if page.episode_number %}
+    <div class="episode-meta">
+      {% if page.season %}Season {{ page.season }} • {% endif %}
+      Episode {{ page.episode_number }}
+    </div>
+    {% endif %}
+  </div>
+  
+  <div class="episode-player">
+    {% include megaphone-player.html id=page.megaphone_id %}
+  </div>
+  
+  <div class="episode-description">
+    {{ content }}
+  </div>
+  
+  <div class="episode-links">
+    <a href="{{ page.audio_url }}" class="download-link" download>Download Episode</a>
+    <a href="/" class="back-link">See All Episodes</a>
+  </div>
+</div>

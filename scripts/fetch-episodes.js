@@ -7,7 +7,7 @@ const yaml = require('js-yaml');
 const { format } = require('date-fns');
 
 // Your podcast RSS feed URL
-const RSS_URL = 'https://your-podcast-rss-feed-url.xml';
+const RSS_URL = 'https://feeds.megaphone.fm/GLSS1396629297';
 const EPISODES_DIR = path.join(__dirname, '../_episodes');
 
 // Ensure episodes directory exists

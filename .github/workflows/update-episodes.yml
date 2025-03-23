@@ -5,6 +5,10 @@ on:
     - cron: '0 */12 * * *'  # Run every 12 hours
   workflow_dispatch:  # Allow manual triggering
 
+# Add permissions block to give write access
+permissions:
+  contents: write
+
 jobs:
   update-episodes:
     runs-on: ubuntu-latest

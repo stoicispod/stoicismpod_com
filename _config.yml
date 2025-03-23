@@ -1,0 +1,24 @@
+# Site settings
+title: Your Podcast Name
+description: Your podcast description
+url: https://stoicispod.github.io
+baseurl: /stoicismpod_com
+
+# Build settings
+markdown: kramdown
+permalink: /:title/
+
+# Collections for episodes
+collections:
+  episodes:
+    output: true
+    permalink: /episodes/:name/
+
+# Exclude files from build
+exclude:
+  - scripts/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

@@ -1,7 +1,7 @@
 ---
 layout: episode
 title: Understanding Impressions in Stoicism (Meditations 3.11)
-date: Tue, 18 Mar 2025 10:00:00 -0000
+date: Tue, 18 Mar 2025 09:00:00 -0000
 description: >-
   In this episode, we explore Meditations 3.11 and its profound insights into
   how we process and assent to impressions. The Stoics believed that our initial
@@ -49,7 +49,7 @@ description: >-
 
   Join The Society of Stoics at https://community.stoicismpod.com. Members enjoy
   ad-free episodes, weekly journaling prompts, a membership medallion, and
-  access to regular live calls and discussions.
+  access to regular live calls and discussions
 
 
   Get on the list: https://stoicismpod.com/list
@@ -88,7 +88,7 @@ THREE TAKEAWAYS
 — Reason must lead our decisions: Emotions are valuable, but they should be informed by rational understanding. A truly great person is one who sees things as they are and allows reason to guide their responses.
 — Withholding assent is not neutrality: Refusing to form an opinion does not mean avoiding bias; it is itself an assent to inaction. Stoicism calls us to engage with reality and make rational, virtuous choices based on the best information available.
 
-Join The Society of Stoics at https://community.stoicismpod.com. Members enjoy ad-free episodes, weekly journaling prompts, a membership medallion, and access to regular live calls and discussions.
+Join The Society of Stoics at https://community.stoicismpod.com. Members enjoy ad-free episodes, weekly journaling prompts, a membership medallion, and access to regular live calls and discussions
 
 Get on the list: https://stoicismpod.com/list
 Go ad-free: https://stoicismpod.com/members
